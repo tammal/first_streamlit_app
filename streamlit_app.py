@@ -4,6 +4,16 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
+def insert_row_snowflake(new_fruit):
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("insert into fruit_load_list values('{}')".format(new_fruit))
+    return "Thanks for adding "+new_fruit
+  
+def get_fruit_load_list():
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("select * from fruit_load_list")
+    return my_cur.fetchall()
+  
 streamlit.title("Training")
 streamlit.header('Fruityvice Fruit Advice')
 streamlit.text('Omega 3 & Blueberry oatmeal')
@@ -27,15 +37,7 @@ try:
   fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 
   streamlit.dataframe(fruityvice_normalized)
-def insert_row_snowflake(new_fruit):
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("insert into fruit_load_list values('{}')".format(new_fruit))
-    return "Thanks for adding "+new_fruit
-  
-def get_fruit_load_list():
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("select * from fruit_load_list")
-    return my_cur.fetchall()
+
    
   
   if streamlit.button('Get Fruit List'):
