@@ -38,6 +38,6 @@ try:
   fruit_to_add = streamlit.text_input('what fruit would you like to add?' ,'jackfruit')
   my_cur.execute("insert into fruit_load_list values('%').format(fruit_to_add)")
   
-error URLError as e:
+except URLError as e:
   streamlit.error()
                                     
