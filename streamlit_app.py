@@ -32,12 +32,12 @@ try:
   my_cur = my_cnx.cursor()
   my_cur.execute("select * from fruit_load_list")
   my_data_row = my_cur.fetchall()
-  streamlit.header("The fruit list contains:")
-  streamlit.dataframe(my_data_row)
+
 
   fruit_to_add = streamlit.text_input('what fruit would you like to add?' ,'jackfruit')
   my_cur.execute("insert into fruit_load_list values('{}')".format(fruit_to_add))
-  
+  streamlit.header("The fruit list contains:")
+  streamlit.dataframe(my_data_row)
 except URLError as e:
   streamlit.error()
                                     
